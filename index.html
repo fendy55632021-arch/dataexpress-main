@@ -1,0 +1,676 @@
+﻿<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DataExpress Intelligent Network (DIN) | Portal Induk Analisis Pasaran & Ketelusan Data</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-base: #050a14;
+      --bg-surface: #0a1224;
+      --bg-card: #0f1c38;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-accent: rgba(56, 189, 248, 0.3);
+      --primary: #38bdf8;
+      --gold: #f59e0b;
+      --emerald: #10b981;
+      --rose: #f43f5e;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* 1. TICKER TAPE BLOOMBERG 1 BARIS BERTERUSAN */
+    .top-ticker-bar {
+      background: #02050b;
+      border-bottom: 1px solid var(--border);
+      width: 100%;
+      height: 44px;
+      overflow: hidden;
+      position: sticky;
+      top: 0;
+      z-index: 105;
+    }
+
+    /* 2. HEADER KORPORAT & LANGUAGE TOGGLE */
+    header {
+      background: rgba(10, 18, 36, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 44px;
+      z-index: 100;
+      padding: 0.85rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+    .brand-logo-box {
+      background: linear-gradient(135deg, #0284c7, #38bdf8);
+      color: #000;
+      font-weight: 800;
+      font-size: 1.15rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: 8px;
+      letter-spacing: 0.5px;
+    }
+    .brand-title {
+      font-weight: 800;
+      font-size: 1.15rem;
+      letter-spacing: -0.3px;
+    }
+    .brand-sub {
+      font-size: 0.73rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    nav {
+      display: flex;
+      gap: 1.25rem;
+      align-items: center;
+      font-size: 0.88rem;
+    }
+    nav a { color: var(--text-muted); transition: color 0.2s; font-weight: 600; }
+    nav a:hover, nav a.active { color: var(--primary); }
+
+    /* LANGUAGE TOGGLE BTN */
+    .lang-switcher {
+      background: #040812;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      display: flex;
+      overflow: hidden;
+      font-size: 0.75rem;
+      font-weight: 800;
+    }
+    .lang-btn {
+      padding: 0.3rem 0.75rem;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+    .lang-btn.active {
+      background: var(--primary);
+      color: #000;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* HERO */
+    .hero {
+      padding: 3.5rem 1.5rem 2.5rem;
+      text-align: center;
+      max-width: 950px;
+      margin: 0 auto;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid var(--border-accent);
+      color: var(--primary);
+      padding: 0.35rem 1rem;
+      border-radius: 50px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      text-transform: uppercase;
+    }
+    .hero h1 {
+      font-size: 2.6rem;
+      font-weight: 800;
+      line-height: 1.22;
+      margin-bottom: 1rem;
+      background: linear-gradient(180deg, #ffffff 0%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 780px;
+      margin: 0 auto 1.5rem;
+    }
+
+    /* 3. TRADINGVIEW CANDLESTICK CHART SECTION */
+    .market-section {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.75rem;
+      margin-bottom: 3.5rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.45);
+    }
+    .market-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .market-title h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .market-title p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .chart-tabs {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .tab-btn:hover { border-color: var(--primary); color: #fff; }
+    .tab-btn.active {
+      background: rgba(56, 189, 248, 0.18);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+    .chart-container-box {
+      height: 540px;
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #020617;
+    }
+
+    /* 4 & 5. DUA SAYAP GERBANG (AYAT DRAMATIK) */
+    .wings-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3.5rem;
+    }
+    .wing-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s, border-color 0.2s;
+      position: relative;
+    }
+    .wing-card:hover {
+      transform: translateY(-4px);
+    }
+    .wing-cpo { border-top: 4px solid var(--gold); }
+    .wing-rakyat { border-top: 4px solid var(--emerald); }
+    .wing-tag {
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 0.75rem;
+      display: inline-block;
+    }
+    .dramatic-headline {
+      font-size: 1.25rem;
+      font-weight: 800;
+      line-height: 1.35;
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+    .dramatic-desc {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 1.75rem;
+    }
+    .wing-points {
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+    .wing-points li {
+      font-size: 0.86rem;
+      color: #cbd5e1;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .wing-cta-btn {
+      display: block;
+      text-align: center;
+      padding: 0.9rem 1.25rem;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      transition: opacity 0.2s;
+    }
+    .btn-cpo-action { background: linear-gradient(135deg, #d97706, #f59e0b); color: #000; }
+    .btn-rakyat-action { background: linear-gradient(135deg, #059669, #10b981); color: #fff; }
+    .wing-cta-btn:hover { opacity: 0.92; }
+
+    /* 6. RUANGAN DUTA BUDAYA (15 LAGU REAL CARTA AIMX) */
+    .csr-section {
+      background: linear-gradient(180deg, var(--bg-surface) 0%, rgba(10, 18, 36, 0.6) 100%);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.5rem;
+      margin-bottom: 4rem;
+    }
+    .csr-head {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1.5rem;
+      margin-bottom: 1.75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .csr-badge {
+      background: rgba(244, 63, 94, 0.15);
+      border: 1px solid rgba(244, 63, 94, 0.35);
+      color: var(--rose);
+      padding: 0.35rem 0.85rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+      display: inline-block;
+    }
+    .genre-section-title {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--cyan);
+      margin: 1.5rem 0 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .song-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 0.75rem;
+    }
+    .song-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: border-color 0.2s;
+    }
+    .song-card:hover { border-color: var(--primary); }
+    .song-card.champion {
+      border: 1px solid rgba(245, 158, 11, 0.5);
+      background: rgba(245, 158, 11, 0.08);
+    }
+    .rank-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      font-weight: 800;
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+    }
+    .rank-no1 { background: var(--gold); color: #000; }
+    .rank-top { background: rgba(56, 189, 248, 0.2); color: var(--primary); }
+    .rank-norm { background: rgba(255, 255, 255, 0.08); color: #cbd5e1; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      background: #02050b;
+      padding: 3rem 1.5rem 2rem;
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+    .footer-disc {
+      max-width: 820px;
+      margin: 1rem auto 0;
+      color: #64748b;
+      font-size: 0.76rem;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. BLOOMBERG TICKER TAPE -->
+  <div class="top-ticker-bar">
+    <div class="tradingview-widget-container">
+      <div class="tradingview-widget-container__widget"></div>
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+      {
+        "symbols": [
+          { "proName": "TVC:GOLD", "title": "Emas (XAU/USD)" },
+          { "proName": "TVC:UKOIL", "title": "Minyak Mentah Brent" },
+          { "proName": "FX_IDC:USDMYR", "title": "Forex (USD/MYR)" },
+          { "proName": "MYX:FCPO1!", "title": "Sawit Niaga Hadapan (FCPO)" }
+        ],
+        "showSymbolLogo": true,
+        "isTransparent": true,
+        "displayMode": "adaptive",
+        "colorTheme": "dark",
+        "locale": "en"
+      }
+      </script>
+    </div>
+  </div>
+
+  <!-- 2. HEADER & LANGUAGE SWITCHER -->
+  <header>
+    <div class="brand-wrap">
+      <div class="brand-logo-box">DIN</div>
+      <div>
+        <div class="brand-title">DataExpress Intelligent Network</div>
+        <div class="brand-sub" id="txtHeaderSub">Portal Induk Analisis Pasaran & Ketelusan Data</div>
+      </div>
+    </div>
+    <nav>
+      <a href="#pasaran" class="active" id="navMarket">Pasaran Global</a>
+      <a href="#sayap" id="navWings">Dua Sayap DIN</a>
+      <a href="#csr" id="navCsr">Duta Budaya</a>
+      <a href="https://cpo.dataexpress.live" target="_blank" style="color: var(--gold);">DIN Palm</a>
+      <a href="https://datarakyat.dataexpress.live" target="_blank" style="color: var(--emerald);">DIN DataRakyat</a>
+    </nav>
+    <div class="lang-switcher">
+      <button class="lang-btn active" id="btnBM" onclick="setLang('bm')">BM</button>
+      <button class="lang-btn" id="btnEN" onclick="setLang('en')">EN</button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge" id="heroBadge"> Payung Analitik Bebas & Bersepadu</div>
+    <h1 id="heroH1">Membaca Data. Menghubungkan Sebab. Menjelaskan Kesan.</h1>
+    <p id="heroP">
+      DataExpress Intelligent Network (DIN) menyatukan risikan pasaran komoditi bertaraf institusi dan ketelusan harga keperluan makanan marhaen demi kestabilan ekonomi ummah.
+    </p>
+  </section>
+
+  <main class="container">
+
+    <!-- 3. TRADINGVIEW CANDLESTICK CHART SECTION -->
+    <section class="market-section" id="pasaran">
+      <div class="market-head">
+        <div class="market-title">
+          <h3 id="chartTitleHead"> Terminal Pasaran Global (TradingView)</h3>
+          <p id="chartTitleSub">Analisis Candlestick Lilin Merah & Hijau Waktu Sebenar (Waktu Pasaran Kuala Lumpur)</p>
+        </div>
+        <div class="chart-tabs">
+          <button class="tab-btn active" onclick="switchSymbol('TVC:GOLD', this)">
+            <span></span> Emas (XAU/USD)
+          </button>
+          <button class="tab-btn" onclick="switchSymbol('TVC:UKOIL', this)">
+            <span></span> Minyak Brent
+          </button>
+          <button class="tab-btn" onclick="switchSymbol('FX_IDC:USDMYR', this)">
+            <span></span> Forex (USD/MYR)
+          </button>
+          <button class="tab-btn" onclick="switchSymbol('MYX:FCPO1!', this)">
+            <span></span> Sawit (FCPO)
+          </button>
+        </div>
+      </div>
+
+      <div class="chart-container-box">
+        <div id="tradingview_chart" style="height: 100%; width: 100%;"></div>
+      </div>
+    </section>
+
+    <!-- 4 & 5. DUA SAYAP GERBANG UTAMA (DRAMATIK) -->
+    <section class="wings-grid" id="sayap">
+
+      <!-- SAYAP 1: CPO (B2B) -->
+      <div class="wing-card wing-cpo">
+        <div>
+          <span class="wing-tag" style="color: var(--gold);" id="cpoWingTag">Sayap B2B / Risikan Industri</span>
+          <div class="dramatic-headline" id="cpoHead">
+            DARI TITISAN MINYAK SAWIT DI JALAN TANAH MERAH KE MEJA KUASA ROTTERDAM
+          </div>
+          <p class="dramatic-desc" id="cpoDesc">
+            Bongkar peta transmisi rahsia 30 hab kilang sawit negara sebelum pasaran dunia ditutup jam 5:00 petang. Sebut harga pintu kilang, indeks OER sebenar, susutan diesel lori, dan radar risiko EUDR 2026.
+          </p>
+          <ul class="wing-points" id="cpoBullets">
+            <li> Sebut harga harian 30 hab kilang (Sabah, Sarawak, Semenanjung)</li>
+            <li> Laporan Eksekutif PDF 4 Muka Surat Jam 5:00 Petang</li>
+            <li> Sampel Percuma Edisi 05 Okt 2026 Sedia Dimuat Turun</li>
+            <li> Akses Profesional RM30 / Bulan</li>
+          </ul>
+        </div>
+        <a href="https://cpo.dataexpress.live" target="_blank" class="wing-cta-btn btn-cpo-action" id="cpoBtn">
+          Akses Terminal Risikan Sawit B2B (RM30/bln) 
+        </a>
+      </div>
+
+      <!-- SAYAP 2: DATARAKYAT (B2C) -->
+      <div class="wing-card wing-rakyat">
+        <div>
+          <span class="wing-tag" style="color: var(--emerald);" id="rakyatWingTag">Sayap B2C / 100% Percuma</span>
+          <div class="dramatic-headline" id="rakyatHead">
+            PERISAI BELANJA DAPUR MARHAEN (TANPA KASTA DATA)
+          </div>
+          <p class="dramatic-desc" id="rakyatDesc">
+            Pantau sebut harga 30 barangan asas makanan dapur merentas 6 zon median negara dengan indikator perubahan harian ( Naik /  Turun /  Terap) dan Kalkulator Bajet Dapur Keluarga Tuan GP!
+          </p>
+          <ul class="wing-points" id="rakyatBullets">
+            <li> 30 Barangan Dapur Asas (Beras, Ayam, Telur, Minyak, Sayur)</li>
+            <li> Indikator Perubahan Harian ( Naik /  Turun /  Terap)</li>
+            <li> Kalkulator Bajet Keluarga 4 Orang (RM 88.30 / Minggu)</li>
+            <li> Pautan Terus e-Aduan KPDN Rasmi (1-800-886-800)</li>
+          </ul>
+        </div>
+        <a href="https://datarakyat.dataexpress.live" target="_blank" class="wing-cta-btn btn-rakyat-action" id="rakyatBtn">
+          Buka Papan Ketelusan Makanan Marhaen (100% Percuma) 
+        </a>
+      </div>
+
+    </section>
+
+    <!-- 6. RUANGAN DUTA BUDAYA (15 LAGU REAL CARTA AIMX) -->
+    <section class="csr-section" id="csr">
+      <div class="csr-head">
+        <div>
+          <div class="csr-badge" id="csrBadge">Inisiatif CSR & Budaya DIN</div>
+          <h2 style="font-size: 1.6rem; font-weight: 800; color: #fff;" id="csrTitle">
+            Duta Budaya Rasmi: Fendos Airaya
+          </h2>
+          <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 0.35rem;" id="csrDesc">
+            DataExpress Intelligent Network berbangga menaja Fendos Airaya sebagai duta seni budaya marhaen. Muzik adalah jiwa perjuangan rakyat yang melengkapi ketepatan angka dan data.
+          </p>
+        </div>
+        <div style="background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3); padding: 0.5rem 1rem; border-radius: 8px; text-align: right;">
+          <div style="font-size: 0.72rem; color: var(--emerald); font-weight: 800; text-transform: uppercase;">STATUS CARTA AIMXCHANGE</div>
+          <div style="font-size: 1.15rem; font-weight: 800; color: #fff;">15 LAGU DALAM CARTA</div>
+          <div style="font-size: 0.7rem; color: var(--text-muted);">Dipantau Enjin Awan Setiap 2 Jam</div>
+        </div>
+      </div>
+
+      <!-- KATEGORI PUNK -->
+      <div class="genre-section-title">
+        <span> Kategori Punk (6 Lagu)</span>
+        <span style="font-size: 0.75rem; color: var(--gold); font-weight: 700;"> MENGUASAI TOP 2 CARTA NEGARA!</span>
+      </div>
+      <div class="song-grid">
+        <div class="song-card champion">
+          <div><div style="font-weight: 800; color: #fff;">Di Garis Waktu</div><div style="font-size: 0.72rem; color: var(--gold);"> JUARA CARTA PUNK!</div></div>
+          <span class="rank-pill rank-no1">#1</span>
+        </div>
+        <div class="song-card champion">
+          <div><div style="font-weight: 800; color: #fff;">Teman Dalam Terluka</div><div style="font-size: 0.72rem; color: var(--primary);"> NAIB JUARA PUNK!</div></div>
+          <span class="rank-pill rank-top">#2</span>
+        </div>
+        <div class="song-card"><div><div style="font-weight: 700;">Hanya Satu Di Hati</div></div><span class="rank-pill rank-norm">#12</span></div>
+        <div class="song-card"><div><div style="font-weight: 700;">Tiada Daya</div></div><span class="rank-pill rank-norm">#13</span></div>
+        <div class="song-card"><div><div style="font-weight: 700;">Mencari Makna Cinta</div></div><span class="rank-pill rank-norm">#15</span></div>
+        <div class="song-card"><div><div style="font-weight: 700;">Tanda Pejuang</div></div><span class="rank-pill rank-norm">#16</span></div>
+      </div>
+
+      <!-- KATEGORI REGGAE -->
+      <div class="genre-section-title">
+        <span> Kategori Reggae (7 Lagu)</span>
+        <span style="font-size: 0.75rem; color: var(--emerald); font-weight: 700;"> MENGUASAI TOP 5 CARTA!</span>
+      </div>
+      <div class="song-grid">
+        <div class="song-card champion">
+          <div><div style="font-weight: 800; color: #fff;">Cepat Rebutlah Peluang</div><div style="font-size: 0.72rem; color: var(--emerald);"> TOP 2 REGGAE!</div></div>
+          <span class="rank-pill rank-top">#2</span>
+        </div>
+        <div class="song-card champion">
+          <div><div style="font-weight: 800; color: #fff;">Keinsafan Diri (Anti Balada)</div><div style="font-size: 0.72rem; color: var(--emerald);"> TOP 4 REGGAE!</div></div>
+          <span class="rank-pill rank-top">#4</span>
+        </div>
+        <div class="song-card"><div><div style="font-weight: 700;">Lupakan Duka Lalu (Simponi)</div></div><span class="rank-pill rank-norm">#14</span></div>
+        <div class="song-card"><div><div style="font-weight: 700;">Nekad 9 Ska Bersaudara</div></div><span class="rank-pill rank-norm">#25</span></div>
+        <div class="song-card"><div><div style="font-weight: 700;">Jalani</div></div><span class="rank-pill rank-norm">#27</span></div>
+        <div class="song-card"><div><div style="font-weight: 700;">Seiringan</div></div><span class="rank-pill rank-norm">#32</span></div>
+        <div class="song-card"><div><div style="font-weight: 700;">Ska Happy Perjalanan</div></div><span class="rank-pill rank-norm">#33</span></div>
+      </div>
+
+      <!-- KATEGORI BLUES -->
+      <div class="genre-section-title">
+        <span> Kategori Blues (2 Lagu)</span>
+      </div>
+      <div class="song-grid">
+        <div class="song-card"><div><div style="font-weight: 700;">Sang Pemilik Waktu</div><div style="font-size: 0.72rem; color: var(--text-muted);">Carta Blues</div></div><span class="rank-pill rank-norm">#21</span></div>
+        <div class="song-card"><div><div style="font-weight: 700;">Maju Ke Depan</div><div style="font-size: 0.72rem; color: var(--text-muted);">Carta Blues</div></div><span class="rank-pill rank-norm">#24</span></div>
+      </div>
+
+      <!-- ALL GENRES -->
+      <div class="genre-section-title" style="color: var(--text-muted);">
+        <span> Kategori All Genres</span>
+      </div>
+      <div style="background: rgba(255, 255, 255, 0.03); border: 1px dashed var(--border); padding: 0.85rem 1.25rem; border-radius: 8px; font-size: 0.82rem; color: var(--text-muted);">
+        Status Semasa: 15 Lagu Pejuang Marhaen Fendos Airaya sedang memburu kedudukan Top 50 Carta Keseluruhan (All Genres) minggu ini.
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 7. FOOTER PERISAI DIN -->
+  <footer>
+    <div style="font-weight: 800; font-size: 1.1rem; color: #fff; margin-bottom: 0.35rem;">
+      DataExpress Intelligent Network (DIN)
+    </div>
+    <div> 2026 DataExpress Intelligent Network (DIN). Hak Cipta Terpelihara.</div>
+    <div class="footer-disc">
+      Penafian Rasmi: DataExpress Intelligent Network (DIN) adalah entiti portal analitik bebas. Maklumat harga komoditi dan barangan asas keperluan dapur marhaen dipaparkan adalah untuk tujuan rujukan dan ketelusan awam semata-mata, dan bukan merupakan nasihat pelaburan rasmi atau saluran aduan penguatkuasaan kerajaan. Fendos Airaya ditaja sepenuhnya di bawah inisiatif Tanggungjawab Sosial Korporat (CSR) seni dan kebudayaan DIN tanpa sebarang liabiliti operasi atau pemilikan entiti.
+    </div>
+  </footer>
+
+  <!-- SCRIPT TRADINGVIEW CHART & SWITCHER + DUAL LANGUAGE -->
+  <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+  <script type="text/javascript">
+    let currentSymbol = "TVC:GOLD";
+
+    function loadCandleChart(symbol) {
+      new TradingView.widget({
+        "autosize": true,
+        "symbol": symbol,
+        "interval": "D",
+        "timezone": "Asia/Kuala_Lumpur",
+        "theme": "dark",
+        "style": "1", // 1 = Candlestick (Lilin Merah & Hijau)
+        "locale": "en",
+        "toolbar_bg": "#0f1c38",
+        "enable_publishing": false,
+        "allow_symbol_change": true,
+        "container_id": "tradingview_chart"
+      });
+    }
+
+    function switchSymbol(symbol, btn) {
+      currentSymbol = symbol;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      loadCandleChart(symbol);
+    }
+
+    // TOGGLE BM / EN
+    function setLang(lang) {
+      document.getElementById('btnBM').classList.toggle('active', lang === 'bm');
+      document.getElementById('btnEN').classList.toggle('active', lang === 'en');
+
+      if (lang === 'en') {
+        document.getElementById('txtHeaderSub').innerText = "Master Portal for Market Analysis & Data Transparency";
+        document.getElementById('navMarket').innerText = "Global Markets";
+        document.getElementById('navWings').innerText = "Two Wings of DIN";
+        document.getElementById('navCsr').innerText = "Cultural Ambassador";
+        document.getElementById('heroBadge').innerText = " Independent & Integrated Analytics Umbrella";
+        document.getElementById('heroH1').innerText = "Reading Data. Connecting Causes. Explaining Effects.";
+        document.getElementById('heroP').innerText = "DataExpress Intelligent Network (DIN) unifies institutional-grade commodity market intelligence and transparent consumer food essentials for economic well-being.";
+        document.getElementById('chartTitleHead').innerText = " Global Market Terminal (TradingView)";
+        document.getElementById('chartTitleSub').innerText = "Real-Time Red & Green Candlestick Analysis (Kuala Lumpur Trading Hours)";
+        document.getElementById('cpoHead').innerText = "FROM PALM OIL TRUCK TRACKS TO ROTTERDAM BOARDROOMS";
+        document.getElementById('cpoDesc').innerText = "Unveil the 30-mill nationwide price transmission network before global close at 5:00 PM. Mill-gate bids, field OER indices, and EUDR 2026 risk radars.";
+        document.getElementById('cpoBtn').innerText = "Access B2B Palm Intelligence Terminal (RM30/mo) ";
+        document.getElementById('rakyatHead').innerText = "THE SHIELD FOR MARHAEN KITCHEN BUDGETS";
+        document.getElementById('rakyatDesc').innerText = "Track 30 essential kitchen goods across 6 national median zones with daily price movement indicators ( Up /  Down /  Par) & Tuan GP's Family Budget Calculator!";
+        document.getElementById('rakyatBtn').innerText = "Open Free Food Transparency Board (100% Free) ";
+      } else {
+        document.getElementById('txtHeaderSub').innerText = "Portal Induk Analisis Pasaran & Ketelusan Data";
+        document.getElementById('navMarket').innerText = "Pasaran Global";
+        document.getElementById('navWings').innerText = "Dua Sayap DIN";
+        document.getElementById('navCsr').innerText = "Duta Budaya";
+        document.getElementById('heroBadge').innerText = " Payung Analitik Bebas & Bersepadu";
+        document.getElementById('heroH1').innerText = "Membaca Data. Menghubungkan Sebab. Menjelaskan Kesan.";
+        document.getElementById('heroP').innerText = "DataExpress Intelligent Network (DIN) menyatukan risikan pasaran komoditi bertaraf institusi dan ketelusan harga keperluan makanan marhaen demi kestabilan ekonomi ummah.";
+        document.getElementById('chartTitleHead').innerText = " Terminal Pasaran Global (TradingView)";
+        document.getElementById('chartTitleSub').innerText = "Analisis Candlestick Lilin Merah & Hijau Waktu Sebenar (Waktu Pasaran Kuala Lumpur)";
+        document.getElementById('cpoHead').innerText = "DARI TITISAN MINYAK SAWIT DI JALAN TANAH MERAH KE MEJA KUASA ROTTERDAM";
+        document.getElementById('cpoDesc').innerText = "Bongkar peta transmisi rahsia 30 hab kilang sawit negara sebelum pasaran dunia ditutup jam 5:00 petang. Sebut harga pintu kilang, indeks OER sebenar, susutan diesel lori, dan radar risiko EUDR 2026.";
+        document.getElementById('cpoBtn').innerText = "Akses Terminal Risikan Sawit B2B (RM30/bln) ";
+        document.getElementById('rakyatHead').innerText = "PERISAI BELANJA DAPUR MARHAEN (TANPA KASTA DATA)";
+        document.getElementById('rakyatDesc').innerText = "Pantau sebut harga 30 barangan asas makanan dapur merentas 6 zon median negara dengan indikator perubahan harian ( Naik /  Turun /  Terap) dan Kalkulator Bajet Dapur Keluarga Tuan GP!";
+        document.getElementById('rakyatBtn').innerText = "Buka Papan Ketelusan Makanan Marhaen (100% Percuma) ";
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+      loadCandleChart("TVC:GOLD");
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,340 @@
+﻿<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invois Digital & Pembayaran Rasmi | DataExpress Intelligent Network (DIN)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #050a14;
+      --surface: #0a1224;
+      --card: #0f1c38;
+      --border: rgba(255, 255, 255, 0.08);
+      --gold: #f59e0b;
+      --green: #10b981;
+      --cyan: #38bdf8;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      line-height: 1.6;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    header {
+      background: rgba(10, 18, 36, 0.95);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .brand-logo {
+      background: linear-gradient(135deg, #0284c7, #38bdf8);
+      color: #000;
+      font-weight: 800;
+      font-size: 1.1rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: 6px;
+    }
+    .brand-title {
+      font-weight: 800;
+      font-size: 1.1rem;
+    }
+    .badge-secure {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: var(--green);
+      padding: 0.3rem 0.8rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .container {
+      max-width: 880px;
+      margin: 2rem auto 4rem;
+      padding: 0 1.5rem;
+    }
+
+    .invoice-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.5rem;
+      box-shadow: 0 20px 45px rgba(0,0,0,0.5);
+    }
+
+    .inv-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1.5rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .inv-title h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #fff;
+    }
+    .inv-num {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--gold);
+      font-size: 0.88rem;
+      font-weight: 700;
+      margin-top: 0.25rem;
+    }
+
+    .inv-details-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      font-size: 0.85rem;
+    }
+    @media (max-width: 600px) { .inv-details-grid { grid-template-columns: 1fr; } }
+    .inv-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem;
+    }
+    .inv-box-label {
+      color: var(--muted);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+
+    .item-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1.5rem;
+      font-size: 0.88rem;
+    }
+    .item-table th {
+      background: #050b17;
+      color: var(--muted);
+      padding: 0.75rem 1rem;
+      text-align: left;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border);
+    }
+    .item-table td {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border);
+      color: #cbd5e1;
+    }
+    .total-row {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 1.5rem;
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin-bottom: 2rem;
+      padding-top: 0.5rem;
+    }
+    .total-amount {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--gold);
+      font-size: 2rem;
+    }
+
+    /* KOTAK PINDAHAN BANK TUNGGAL (SATU SALURAN SAHAJA) */
+    .bank-single-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.75rem;
+      margin-bottom: 2rem;
+    }
+    .bank-header-badge {
+      display: inline-block;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      background: rgba(245, 158, 11, 0.15);
+      padding: 0.45rem 1rem;
+      border-radius: 6px;
+      font-size: 0.84rem;
+      font-weight: 800;
+      margin-bottom: 1.25rem;
+    }
+    .bank-info-box {
+      background: #070e1c;
+      border-radius: 10px;
+      padding: 1.5rem;
+      font-size: 0.92rem;
+      line-height: 2.1;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .bank-num-big {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--gold);
+      display: inline-block;
+      letter-spacing: 1px;
+    }
+
+    /* ACTIONS */
+    .action-row {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .btn-act {
+      flex: 1;
+      min-width: 200px;
+      padding: 0.9rem 1.25rem;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 0.92rem;
+      text-align: center;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      border: none;
+    }
+    .btn-print { background: var(--card); border: 1px solid var(--border); color: #fff; }
+    .btn-wa-confirm { background: #16a34a; color: #fff; }
+    .btn-act:hover { opacity: 0.92; }
+
+    footer {
+      text-align: center;
+      font-size: 0.76rem;
+      color: var(--muted);
+      margin-top: 2rem;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <div class="brand-logo">DIN</div>
+      <div>
+        <div class="brand-title">DataExpress Intelligent Network</div>
+      </div>
+    </div>
+    <div class="badge-secure">
+      🔒 Gerbang Bayaran Rasmi Disahkan
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="invoice-card" id="invoiceArea">
+
+      <div class="inv-header">
+        <div class="inv-title">
+          <h2>INVOIS DIGITAL RASMI</h2>
+          <div class="inv-num">NO. INVOIS: DIN-INV-202610-8842</div>
+        </div>
+        <div style="text-align: right; font-size: 0.8rem; color: var(--muted);">
+          <div>Tarikh: <strong>06 Oktober 2026</strong></div>
+          <div>Status: <span style="color: var(--gold); font-weight: 700;">MENUNGGU BAYARAN</span></div>
+        </div>
+      </div>
+
+      <div class="inv-details-grid">
+        <div class="inv-box">
+          <div class="inv-box-label">Penerima Bayaran (Akaun Rasmi)</div>
+          <div style="font-weight: 700; color: #fff;">DataExpress Intelligent Network (DIN)</div>
+          <div style="color: var(--muted);">Entiti Analisis & Risikan Pasaran Bebas</div>
+          <div style="color: var(--muted); font-size: 0.78rem; margin-top: 0.25rem;">Lot 3520, Jalan Kapar, Selangor</div>
+        </div>
+        <div class="inv-box">
+          <div class="inv-box-label">Butiran Pelanggan</div>
+          <div style="font-weight: 700; color: #fff;">Pelanggan Korporat / Industri</div>
+          <div style="color: var(--muted);">Langganan Akses Penuh Terminal Sawit</div>
+          <div style="color: var(--green); font-size: 0.78rem; margin-top: 0.25rem;">Akses: Harian (Isnin - Jumaat, Jam 5:00 Petang)</div>
+        </div>
+      </div>
+
+      <table class="item-table">
+        <thead>
+          <tr>
+            <th>Keterangan Pakej Perkhidmatan</th>
+            <th>Tempoh</th>
+            <th style="text-align: right;">Jumlah (MYR)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <strong style="color: #fff;">DIN Palm Intelligence (B2B Terminal Access)</strong><br>
+              <span style="font-size: 0.78rem; color: var(--muted);">
+                • Sebut harga pintu kilang 30 hab (Sabah, Sarawak, Semenanjung)<br>
+                • Laporan eksekutif harian PDF 4 muka surat jam 5:00 petang<br>
+                • Analisis makro dunia, dasar EUDR 2026 & audit integriti telus
+              </span>
+            </td>
+            <td>1 Bulan</td>
+            <td style="text-align: right; font-weight: 700; font-family: 'JetBrains Mono', monospace; font-size: 1.15rem; color: #fff;">
+              RM 30.00
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="total-row">
+        <span>JUMLAH PERLU DIBAYAR:</span>
+        <span class="total-amount">RM 30.00</span>
+      </div>
+
+      <!-- KOTAK PINDAHAN BANK TUNGGAL (MAYBANK SAHAJA) -->
+      <div class="bank-single-card">
+        <div style="font-size: 0.88rem; font-weight: 800; margin-bottom: 0.75rem; color: #fff;">
+          SALURAN PEMBAYARAN RASMI:
+        </div>
+        <span class="bank-header-badge">🏦 Pindahan Perbankan / Maybank</span>
+
+        <div class="bank-info-box">
+          <div>Nama Bank: <strong style="color: #fff;">Maybank Berhad</strong></div>
+          <div>Nama Pemegang Akaun: <strong style="color: var(--cyan);">MOHAMMAD AFFENDY</strong></div>
+          <div>Nombor Akaun: <div class="bank-num-big">164080003695</div></div>
+          <div>Rujukan Bayaran (Recipient Reference): <strong style="color: var(--gold);">LANGGAN CPO RM30</strong></div>
+        </div>
+      </div>
+
+      <!-- BUTANG TINDAKAN -->
+      <div class="action-row">
+        <button class="btn-act btn-print" onclick="window.print()">
+          🖨️ Cetak / Simpan Invois Rasmi PDF
+        </button>
+        <a href="https://wa.me/601121952412?text=As-Salam%20Cik%20Tia,%20saya%20sudah%20membuat%20bayaran%20RM30%20ke%20akaun%20Maybank%20164080003695.%20Mohon%20aktifkan%20langganan%20CPO." target="_blank" class="btn-act btn-wa-confirm">
+          💬 Hantar Resit ke WhatsApp Cik Tia (011-2195 2412)
+        </a>
+      </div>
+
+    </div>
+
+    <footer>
+      © 2026 DataExpress Intelligent Network (DIN). Hak Cipta Terpelihara.<br>
+      Sistem pembayaran berpusat rasmi. Tiada bayaran ke akaun peribadi dibenarkan bagi memelihara integriti tadbir urus institusi.
+    </footer>
+  </main>
+
+</body>
+</html>
