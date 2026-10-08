@@ -1,0 +1,114 @@
+﻿{
+    "market_sentiment":  "BULLISH (SAWIT \u0026 KOMODITI STABIL)",
+    "rankings":  [
+                     {
+                         "title":  "Di Garis Waktu",
+                         "rank":  1,
+                         "artist":  "Fendos Airaya",
+                         "genre":  "PUNK",
+                         "badge":  "#1 AIMX PUNK"
+                     },
+                     {
+                         "title":  "Teman Dalam Terluka",
+                         "rank":  2,
+                         "artist":  "Fendos Airaya",
+                         "genre":  "PUNK",
+                         "badge":  "#2 AIMX PUNK"
+                     },
+                     {
+                         "title":  "Maju Ke Depan",
+                         "rank":  21,
+                         "artist":  "Fendos Airaya",
+                         "genre":  "BLUES",
+                         "badge":  "#21 AIMX BLUES"
+                     },
+                     {
+                         "title":  "Masih Ada Cahaya",
+                         "rank":  24,
+                         "artist":  "Fendos Airaya",
+                         "genre":  "BLUES",
+                         "badge":  "#24 AIMX BLUES"
+                     },
+                     {
+                         "title":  "Ska Bersahaja",
+                         "rank":  2,
+                         "artist":  "Fendos Airaya",
+                         "genre":  "REGGAE",
+                         "badge":  "#2 AIMX REGGAE"
+                     },
+                     {
+                         "title":  "Jalani (Ska Version)",
+                         "rank":  4,
+                         "artist":  "Fendos Airaya",
+                         "genre":  "REGGAE",
+                         "badge":  "#4 AIMX REGGAE"
+                     },
+                     {
+                         "title":  "Kekuasaan Kursi Allah",
+                         "rank":  5,
+                         "artist":  "Fendos Airaya",
+                         "genre":  "ROCK",
+                         "badge":  "TOP 10 ROCK"
+                     },
+                     {
+                         "title":  "Al-Ikhlas (Slow Version)",
+                         "rank":  7,
+                         "artist":  "Fendos Airaya",
+                         "genre":  "ROCK",
+                         "badge":  "TOP 10 ROCK"
+                     },
+                     {
+                         "title":  "Sumpah Setiaku V3",
+                         "rank":  8,
+                         "artist":  "Fendos Airaya",
+                         "genre":  "ALL",
+                         "badge":  "CARTA UTAMA"
+                     },
+                     {
+                         "title":  "Pengorbanan Suci (Duet)",
+                         "rank":  9,
+                         "artist":  "Fendos Airaya",
+                         "genre":  "ALL",
+                         "badge":  "CARTA UTAMA"
+                     },
+                     {
+                         "title":  "Hati Pemurah V4",
+                         "rank":  11,
+                         "artist":  "Fendos Airaya",
+                         "genre":  "ALL",
+                         "badge":  "CARTA UTAMA"
+                     },
+                     {
+                         "title":  "Tenang Hadapi Rintangan",
+                         "rank":  12,
+                         "artist":  "Fendos Airaya",
+                         "genre":  "ALL",
+                         "badge":  "CARTA UTAMA"
+                     },
+                     {
+                         "title":  "Bukan Satu Perlumbaan",
+                         "rank":  14,
+                         "artist":  "Fendos Airaya",
+                         "genre":  "ALL",
+                         "badge":  "CARTA UTAMA"
+                     },
+                     {
+                         "title":  "Puncak Ego yang Tercakar",
+                         "rank":  15,
+                         "artist":  "Fendos Airaya",
+                         "genre":  "ALL",
+                         "badge":  "CARTA UTAMA"
+                     },
+                     {
+                         "title":  "Janji (Special Edition)",
+                         "rank":  18,
+                         "artist":  "Fendos Airaya",
+                         "genre":  "ALL",
+                         "badge":  "EDISI KHAS"
+                     }
+                 ],
+    "total_songs":  15,
+    "last_updated":  "08 Oct 2026, 03:29 PM MYT",
+    "status":  "AKTIF \u0026 BERSAMBUNG (API SYNC)",
+    "usd_myr_rate":  "4.1850"
+}

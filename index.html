@@ -672,8 +672,32 @@
       loadCandleChart("TVC:GOLD");
     });
   </script>
+    <script>
+      // LIVE AIMX & MARKET API SYNC ENGINE
+      async function syncAimxLiveStatus() {
+        try {
+          const res = await fetch('aimx_status.json?t=' + new Date().getTime());
+          if (!res.ok) return;
+          const data = await res.json();
+          
+          // Kemas kini timestamp
+          const elTime = document.getElementById('aimx-sync-time');
+          if (elTime) elTime.innerText = data.last_updated;
+          
+          const elStatus = document.getElementById('aimx-live-status');
+          if (elStatus) elStatus.innerText = ' ' + data.status;
+
+          console.log(' Status lagu AIMX & Pasaran disegerakkan:', data.last_updated);
+        } catch (e) {
+          console.warn('API sync mode offline, using cache.');
+        }
+      }
+      document.addEventListener('DOMContentLoaded', syncAimxLiveStatus);
+      setInterval(syncAimxLiveStatus, 120000); // Semak setiap 2 minit
+    </script>
 </body>
 </html>
+
 
 
 
