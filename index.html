@@ -695,8 +695,51 @@
       document.addEventListener('DOMContentLoaded', syncAimxLiveStatus);
       setInterval(syncAimxLiveStatus, 120000); // Semak setiap 2 minit
     </script>
+    <script>
+      // ENJIN SUIS CARTA TRADINGVIEW YANG TEPAT & BEBAS SILAP
+      const symbolMap = {
+        'emas': 'TVC:GOLD',
+        'brent': 'TVC:UKOIL',
+        'forex': 'FX_IDC:USDMYR',
+        'copper': 'TVC:COPPER'
+      };
+
+      function switchTradingChart(key, btnElement) {
+        // Tukar status butang aktif
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        if (btnElement) btnElement.classList.add('active');
+
+        const sym = symbolMap[key] || 'TVC:GOLD';
+        const container = document.getElementById('tradingview_widget_container');
+        if (!container) return;
+
+        container.innerHTML = '';
+        const script = document.createElement('script');
+        script.src = 'https://s3.tradingview.com/tv.js';
+        script.async = true;
+        script.onload = () => {
+          new TradingView.widget({
+            "autosize": true,
+            "symbol": sym,
+            "interval": "D",
+            "timezone": "Asia/Kuala_Lumpur",
+            "theme": "dark",
+            "style": "1",
+            "locale": "ms_MY",
+            "toolbar_bg": "#0a1426",
+            "enable_publishing": false,
+            "hide_top_toolbar": false,
+            "allow_symbol_change": true,
+            "save_image": false,
+            "container_id": "tradingview_widget_container"
+          });
+        };
+        document.head.appendChild(script);
+      }
+    </script>
 </body>
 </html>
+
 
 
 
